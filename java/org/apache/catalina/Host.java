@@ -42,7 +42,7 @@ import java.util.regex.Pattern;
  * of Context (representing an individual servlet context).
  *
  * @author Craig R. McClanahan
- */
+ */ //每一个Host代表一个虚拟域名映射系统，根据Host可以进行虚拟主机隔离
 public interface Host extends Container {
 
 

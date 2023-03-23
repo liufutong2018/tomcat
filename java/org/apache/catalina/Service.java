@@ -30,7 +30,7 @@ import org.apache.catalina.mapper.Mapper;
  * and classes on the system class path.
  *
  * @author Craig R. McClanahan
- */
+ */ //Service服务用来定义Tomcat能做什么泛工作
 public interface Service extends Lifecycle {
 
     // ------------------------------------------------------------- Properties

@@ -2726,7 +2726,7 @@ public class StandardContext extends ContainerBase implements Context, Notificat
      *
      * @exception IllegalArgumentException if the proposed container is not an implementation of Wrapper
      */
-    @Override
+    @Override //添加一个子组件Wrapper（每一个应用里的子组件）
     public void addChild(Container child) {
 
         // Global JspServlet

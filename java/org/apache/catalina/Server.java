@@ -218,7 +218,7 @@ public interface Server extends Lifecycle {
 
     /**
      * Add a new Service to the set of defined Services.
-     *
+     * 服务器可以无限扩充服务
      * @param service The Service to be added
      */
     void addService(Service service);
