@@ -246,12 +246,12 @@ public final class Bootstrap {
 
 
     /**
-     * Initialize daemon.
+     * Initialize daemon. 初始化方法的具体实现
      * @throws Exception Fatal initialization error
      */
     public void init() throws Exception {
-
-        initClassLoaders();
+        //初始化类加载器（三个）
+        initClassLoaders(); 
 
         Thread.currentThread().setContextClassLoader(catalinaLoader);
 
@@ -261,7 +261,9 @@ public final class Bootstrap {
         if (log.isDebugEnabled()) {
             log.debug("Loading startup class");
         }
+        // Tomcat要启动的Class为Catalina
         Class<?> startupClass = catalinaLoader.loadClass("org.apache.catalina.startup.Catalina");
+        // 反射创建Catalina对象
         Object startupInstance = startupClass.getConstructor().newInstance();
 
         // Set the shared extensions class loader
@@ -273,10 +275,9 @@ public final class Bootstrap {
         paramTypes[0] = Class.forName("java.lang.ClassLoader");
         Object paramValues[] = new Object[1];
         paramValues[0] = sharedLoader;
-        Method method =
-            startupInstance.getClass().getMethod(methodName, paramTypes);
+        Method method = startupInstance.getClass().getMethod(methodName, paramTypes);
         method.invoke(startupInstance, paramValues);
-
+        // Catalina的后台线程
         catalinaDaemon = startupInstance;
     }
 
@@ -299,8 +300,7 @@ public final class Bootstrap {
             param = new Object[1];
             param[0] = arguments;
         }
-        Method method =
-            catalinaDaemon.getClass().getMethod(methodName, paramTypes);
+        Method method = catalinaDaemon.getClass().getMethod(methodName, paramTypes);
         if (log.isDebugEnabled()) {
             log.debug("Calling startup class " + method);
         }
@@ -443,7 +443,7 @@ public final class Bootstrap {
                 // Don't set daemon until init() has completed
                 Bootstrap bootstrap = new Bootstrap();
                 try {
-                    bootstrap.init();
+                    bootstrap.init(); // 初始化方法
                 } catch (Throwable t) {
                     handleThrowable(t);
                     t.printStackTrace();
@@ -471,10 +471,11 @@ public final class Bootstrap {
             } else if (command.equals("stopd")) {
                 args[args.length - 1] = "stop";
                 daemon.stop();
+            // command = "start"
             } else if (command.equals("start")) {
                 daemon.setAwait(true);
-                daemon.load(args);
-                daemon.start();
+                daemon.load(args); //加载信息；【Tomcat服务器的组件初始化流程】，在此绑定了ServerSocket的端口准备接受数据了
+                daemon.start(); //Tomcat的启动过程
                 if (null == daemon.getServer()) {
                     System.exit(1);
                 }

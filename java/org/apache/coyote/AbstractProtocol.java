@@ -649,6 +649,7 @@ public abstract class AbstractProtocol<S> implements ProtocolHandler, MBeanRegis
         endpoint.setName(endpointName.substring(1, endpointName.length() - 1));
         endpoint.setDomain(domain);
 
+        // 端口初始化
         endpoint.init();
     }
 

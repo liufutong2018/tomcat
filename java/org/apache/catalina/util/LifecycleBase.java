@@ -33,7 +33,7 @@ import org.apache.tomcat.util.res.StringManager;
  * Base implementation of the {@link Lifecycle} interface that implements the
  * state transition rules for {@link Lifecycle#start()} and
  * {@link Lifecycle#stop()}
- */
+ */ //生命周期的模板类，定义好算法步骤，核心位置留给组件自己定义即可
 public abstract class LifecycleBase implements Lifecycle {
 
     private static final Log log = LogFactory.getLog(LifecycleBase.class);
@@ -125,7 +125,7 @@ public abstract class LifecycleBase implements Lifecycle {
     }
 
 
-    @Override
+    @Override //组件初始化
     public final synchronized void init() throws LifecycleException {
         if (!state.equals(LifecycleState.NEW)) {
             invalidTransition(Lifecycle.BEFORE_INIT_EVENT);
@@ -133,6 +133,7 @@ public abstract class LifecycleBase implements Lifecycle {
 
         try {
             setStateInternal(LifecycleState.INITIALIZING, null, false);
+            // 调用子类实现的真正初始化
             initInternal();
             setStateInternal(LifecycleState.INITIALIZED, null, false);
         } catch (Throwable t) {
@@ -146,16 +147,16 @@ public abstract class LifecycleBase implements Lifecycle {
      * required.
      *
      * @throws LifecycleException If the initialisation fails
-     */
+     */ //留给子类去实现
     protected abstract void initInternal() throws LifecycleException;
 
 
     /**
      * {@inheritDoc}
      */
-    @Override
+    @Override // 定义start的步骤，启动
     public final synchronized void start() throws LifecycleException {
-
+        // 组件状态流转判断
         if (LifecycleState.STARTING_PREP.equals(state) || LifecycleState.STARTING.equals(state) ||
                 LifecycleState.STARTED.equals(state)) {
 
@@ -180,6 +181,7 @@ public abstract class LifecycleBase implements Lifecycle {
 
         try {
             setStateInternal(LifecycleState.STARTING_PREP, null, false);
+            // 调用子类的真正的启动方法
             startInternal();
             if (state.equals(LifecycleState.FAILED)) {
                 // This is a 'controlled' failure. The component put itself into the
@@ -212,14 +214,14 @@ public abstract class LifecycleBase implements Lifecycle {
      * continue to start normally.
      *
      * @throws LifecycleException Start error occurred
-     */
+     */ //组件自己定义，留给子类实现
     protected abstract void startInternal() throws LifecycleException;
 
 
     /**
      * {@inheritDoc}
      */
-    @Override
+    @Override //停止
     public final synchronized void stop() throws LifecycleException {
 
         if (LifecycleState.STOPPING_PREP.equals(state) || LifecycleState.STOPPING.equals(state) ||
@@ -253,7 +255,7 @@ public abstract class LifecycleBase implements Lifecycle {
             } else {
                 setStateInternal(LifecycleState.STOPPING_PREP, null, false);
             }
-
+            // 真正的停止方法
             stopInternal();
 
             // Shouldn't be necessary but acts as a check that sub-classes are
@@ -281,7 +283,7 @@ public abstract class LifecycleBase implements Lifecycle {
      * Changing state will trigger the {@link Lifecycle#STOP_EVENT} event.
      *
      * @throws LifecycleException Stop error occurred
-     */
+     */ //让子类去实现
     protected abstract void stopInternal() throws LifecycleException;
 
 

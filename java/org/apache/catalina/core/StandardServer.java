@@ -67,7 +67,7 @@ import org.apache.tomcat.util.threads.TaskThreadFactory;
  * starting Catalina.
  *
  * @author Craig R. McClanahan
- */
+ */ //Tomcat标准服务器
 public final class StandardServer extends LifecycleMBeanBase implements Server {
 
     private static final Log log = LogFactory.getLog(StandardServer.class);
@@ -977,14 +977,14 @@ public final class StandardServer extends LifecycleMBeanBase implements Server {
 
     /**
      * Invoke a pre-startup initialization. This is used to allow connectors to bind to restricted ports under Unix
-     * operating environments.
+     * operating environments. Server的初始化
      */
     @Override
     protected void initInternal() throws LifecycleException {
 
         super.initInternal();
-
-        // Initialize utility executor
+        // Server的初始化过程
+        // Initialize utility executor 准备线程池
         reconfigureUtilityExecutor(getUtilityThreadsInternal(utilityThreads));
         register(utilityExecutor, "type=UtilityExecutor");
 
@@ -999,7 +999,7 @@ public final class StandardServer extends LifecycleMBeanBase implements Server {
         factory.setContainer(this);
         onameMBeanFactory = register(factory, "type=MBeanFactory");
 
-        // Register the naming resources
+        // 服务器初始化会让里面的组件（JNDI）也初始化 Register the naming resources
         globalNamingResources.init();
 
         // Populate the extension validator with JARs from common and shared
@@ -1029,7 +1029,8 @@ public final class StandardServer extends LifecycleMBeanBase implements Server {
         }
         // Initialize our defined Services
         for (Service service : services) {
-            service.init();
+            // 服务器初始化会让里面的组件 service 也初始化
+            service.init(); //StandardService初始化能干什么?
         }
     }
 

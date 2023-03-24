@@ -132,6 +132,7 @@
       <!-- Host 主机 http://localhost:8080/hello_test/hello  -->
       <Host name="localhost"  appBase="webapps"
             unpackWARs="true" autoDeploy="true">
+        <!-- 访问日志的阀门 -->
         <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs"
                prefix="localhost_access_log" suffix=".txt"
                pattern="%h %l %u %t &quot;%r&quot; %s %b" />

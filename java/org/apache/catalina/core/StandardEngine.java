@@ -50,7 +50,7 @@ import org.apache.juli.logging.LogFactory;
  * and will be removed in Tomcat 10.1 onwards.
  *
  * @author Craig R. McClanahan
- */
+ */ //标准的引擎
 public class StandardEngine extends ContainerBase implements Engine {
 
     private static final Log log = LogFactory.getLog(StandardEngine.class);
@@ -221,7 +221,7 @@ public class StandardEngine extends ContainerBase implements Engine {
     }
 
 
-    @Override
+    @Override //引擎初始化
     protected void initInternal() throws LifecycleException {
         // Ensure that a Realm is present before any attempt is made to start
         // one. This will create the default NullRealm if necessary.
@@ -237,7 +237,7 @@ public class StandardEngine extends ContainerBase implements Engine {
      * @exception LifecycleException if this component detects a fatal error that prevents this component from being
      *                                   used
      */
-    @Override
+    @Override //模板方法的实现，组件引擎的启动方法
     protected synchronized void startInternal() throws LifecycleException {
 
         // Log our server identification information

@@ -120,8 +120,8 @@ import org.apache.tomcat.util.threads.InlineExecutorService;
  * Subclasses that fire additional events should document them in the class comments of the implementation class.
  *
  * @author Craig R. McClanahan
- */
-public abstract class ContainerBase extends LifecycleMBeanBase implements Container {
+ */ //容器的父类
+public abstract class ContainerBase extends LifecycleMBeanBase implements Container {//每一个容器组件都实现了生命周期接口
 
     private static final Log log = LogFactory.getLog(ContainerBase.class);
 

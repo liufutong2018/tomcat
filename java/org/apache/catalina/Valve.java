@@ -36,7 +36,7 @@ import org.apache.catalina.connector.Response;
  * @author Craig R. McClanahan
  * @author Gunnar Rjnning
  * @author Peter Donald
- */
+ */ //阀门， getNext()责任链模式
 public interface Valve {
 
 
@@ -117,9 +117,8 @@ public interface Valve {
      *  by a subsequently invoked Valve, Filter, or Servlet
      * @exception ServletException if a servlet error occurs, or is thrown
      *  by a subsequently invoked Valve, Filter, or Servlet
-     */
-    void invoke(Request request, Response response)
-        throws IOException, ServletException;
+     */ //阀门的执行，阀门的功能在此定义
+    void invoke(Request request, Response response) throws IOException, ServletException;
 
 
     boolean isAsyncSupported();

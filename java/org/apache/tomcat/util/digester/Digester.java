@@ -1529,10 +1529,10 @@ public class Digester extends DefaultHandler2 {
      * @return the root object
      * @exception IOException if an input/output error occurs
      * @exception SAXException if a parsing exception occurs
-     */
+     */ //解析xml文件
     public Object parse(InputSource input) throws IOException, SAXException {
         configure();
-        getXMLReader().parse(input);
+        getXMLReader().parse(input); //xml读取器解析当前server.xml文件;xml解析到了哪些标签，就创建哪些对象，层级封装Catalina里面
         return root;
     }
 

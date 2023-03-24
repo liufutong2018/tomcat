@@ -45,8 +45,8 @@ import org.apache.tomcat.util.res.StringManager;
  * Engine, but this is not required.
  *
  * @author Craig R. McClanahan
- */
-
+ */ 
+//Catalina标准服务
 public class StandardService extends LifecycleMBeanBase implements Service {
 
     private static final Log log = LogFactory.getLog(StandardService.class);
@@ -522,13 +522,14 @@ public class StandardService extends LifecycleMBeanBase implements Service {
     /**
      * Invoke a pre-startup initialization. This is used to allow connectors to bind to restricted ports under Unix
      * operating environments.
-     */
+     */ //service初始化
     @Override
     protected void initInternal() throws LifecycleException {
 
         super.initInternal();
 
         if (engine != null) {
+            // 引擎初始化
             engine.init();
         }
 
@@ -537,15 +538,17 @@ public class StandardService extends LifecycleMBeanBase implements Service {
             if (executor instanceof JmxEnabled) {
                 ((JmxEnabled) executor).setDomain(getDomain());
             }
+            // 线程池初始化
             executor.init();
         }
 
-        // Initialize mapper listener
+        // 监听器初始化 Initialize mapper listener
         mapperListener.init();
 
         // Initialize our defined Connectors
         synchronized (connectorsLock) {
             for (Connector connector : connectors) {
+                // 连接器初始化
                 connector.init();
             }
         }

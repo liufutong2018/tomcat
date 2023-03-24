@@ -563,7 +563,7 @@ public class AccessLogValve extends AbstractAccessLogValve {
      * Log the specified message to the log file, switching files if the date has changed since the previous log call.
      *
      * @param message Message to be logged
-     */
+     */ //记录日志
     @Override
     public void log(CharArrayWriter message) {
 

@@ -968,7 +968,7 @@ public class Connector extends LifecycleMBeanBase {
         }
     }
 
-
+    // 连接器要启动监听端口怎么做到的
     @SuppressWarnings("deprecation")
     @Override
     protected void initInternal() throws LifecycleException {
@@ -1009,6 +1009,7 @@ public class Connector extends LifecycleMBeanBase {
         }
 
         try {
+            // 协议处理器初始化
             protocolHandler.init();
         } catch (Exception e) {
             throw new LifecycleException(sm.getString("coyoteConnector.protocolHandlerInitializationFailed"), e);

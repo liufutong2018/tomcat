@@ -35,7 +35,7 @@ import java.util.Set;
  *
  * @author Craig R. McClanahan
  * @author Peter Donald
- */
+ */ //每一个容器里都有管道，管道里面有很多的Value（阀门）
 public interface Pipeline extends Contained {
 
     /**

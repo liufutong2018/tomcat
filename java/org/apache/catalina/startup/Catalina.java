@@ -548,7 +548,7 @@ public class Catalina {
 
     }
 
-
+    // 解析服务器里的server.xml文件❤
     protected void parseServerXml(boolean start) {
         // Set configuration source
         ConfigFileLoader.setSource(new CatalinaBaseConfigurationSource(Bootstrap.getCatalinaBaseFile(), getConfigFile()));
@@ -604,7 +604,7 @@ public class Catalina {
             serverXml.load(this);
         } else {
             try (ConfigurationSource.Resource resource = ConfigFileLoader.getSource().getServerXml()) {
-                // Create and execute our Digester
+                // Digester是解析xml的工具； Create and execute our Digester
                 Digester digester = start ? createStartDigester() : createStopDigester();
                 InputStream inputStream = resource.getInputStream();
                 InputSource inputSource = new InputSource(resource.getURI().toURL().toString());
@@ -614,6 +614,7 @@ public class Catalina {
                     digester.startGeneratingCode();
                     generateClassHeader(digester, start);
                 }
+                // 解析xml文件
                 digester.parse(inputSource);
                 if (generateCode) {
                     generateClassFooter(digester);
@@ -689,8 +690,8 @@ public class Catalina {
 
 
     /**
-     * Start a new server instance.
-     */
+     * Start a new server instance. 
+     */ //Catalina加载信息
     public void load() {
 
         if (loaded) {
@@ -702,10 +703,10 @@ public class Catalina {
 
         initDirs();
 
-        // Before digester - it may be needed
+        // Before digester - it may be needed；初始化命名服务
         initNaming();
 
-        // Parse main server.xml
+        // Parse main server.xml； 解析服务器里的server.xml文件❤
         parseServerXml(true);
         Server s = getServer();
         if (s == null) {
@@ -719,8 +720,9 @@ public class Catalina {
         // Stream redirection
         initStreams();
 
-        // Start the new server
+        // Start the new server ；服务器执行初始化
         try {
+            // 服务器初始化❤ 调到lifecycleBase.init()
             getServer().init();
         } catch (LifecycleException e) {
             if (Boolean.getBoolean("org.apache.catalina.startup.EXIT_ON_INIT_FAILURE")) {
@@ -753,7 +755,7 @@ public class Catalina {
 
     /**
      * Start a new server instance.
-     */
+     */ //服务器的启动
     public void start() {
 
         if (getServer() == null) {
@@ -769,7 +771,8 @@ public class Catalina {
 
         // Start the new server
         try {
-            getServer().start();
+            // 服务器的启动流程
+            getServer().start(); //服务器启动（里面启动一堆组件）
         } catch (LifecycleException e) {
             log.fatal(sm.getString("catalina.serverStartFail"), e);
             try {
